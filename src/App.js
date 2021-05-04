@@ -1,7 +1,28 @@
 import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
 
+// Android -> Java, Kotlin
+// IOS -> Objective C, Swift
 
+// Hybrid
+// -> Cordova
+// -> IONIC
+
+// Same WEB APP CAN convert to Mobile App
+
+// Cant use features of Native App
+
+// Native-Hybrid
+// React-Native
+// -> Havy Animation is not possible at 60fps
+// -> for specific native feature have to put extra efforts
+// -> you should have basic knowledge of JAVA/Objective
+
+// Flutter
+// -> DARK
+
+
+// Native
 
 // What is Props
 // To pass data from parent componenent to child component
@@ -24,10 +45,15 @@ let abc = "ABC";
 // -> getDerivedStateFromProps
 // -> shouldComponentUpdate
 // -> render
-// -> componentDidMound
+// -> getSnapshotBeforeUpdate
+// -> componentDidUpdate
 
 // UnMounting
+// -> componentWillUnmount
+
 // Error Handling
+// -> getDerivedStateFromError
+// -> componentDidCatch
 
 
 class App extends Component {
@@ -75,17 +101,40 @@ class App extends Component {
 
   componentDidMount() {
       console.log('componentDidMount');
-    //   document.addEventListener('copy', () => {
-    //       console.log('coppied');
-    //   }) 
+     document.addEventListener('mousemove', () => {
+          console.log('mousemove');
+      }); 
+
+      this.interval = setInterval(() => {
+        console.log('hello');
+      }, 1000);
+      
 
     // fetch data;
 
     this.nameRef.current.style = "color:red";
   }
 
-  componentDidUpdate(prevProps, prevState) {
-      
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    return 10
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+      console.log(snapshot);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousemove');
+    clearInterval(this.interval);
+  }
+  
+
+  static getDerivedStateFromError(error) {
+
+  }
+
+  componentDidCatch(error,info) {
+
   }
   
   
