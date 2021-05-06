@@ -4,8 +4,6 @@ import Checkbox from '../components/checkbox/index';
 import DeleteIcon from '../../assets/icons/delete.svg';
 
 const TodoList = ({filltedList, onCompleteToggle, deleteTodo}) => {
-  console.log('TodoList component');
-
   const renderList = ({item}) => {
     return (
       <View
@@ -52,4 +50,6 @@ const TodoList = ({filltedList, onCompleteToggle, deleteTodo}) => {
   );
 };
 
-export default memo(TodoList);
+export default memo(TodoList, (prevProps, nextProps) => {
+  return prevProps.filltedList.length === nextProps.filltedList.length;
+});
