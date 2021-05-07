@@ -1,18 +1,18 @@
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
-import {Pressable} from 'react-native';
+import {BorderlessButton} from 'react-native-gesture-handler';
 import CheckboxIcon from '../../../assets/icons/check_box.svg';
 import CheckboxOutlineIcon from '../../../assets/icons/check_box_outline.svg';
 
 const Checkbox = ({checked, onPress}) => {
   return (
-    <Pressable onPress={onPress}>
+    <BorderlessButton onPress={onPress}>
       {checked ? (
         <CheckboxIcon height={24} width={24} fill="gray" />
       ) : (
         <CheckboxOutlineIcon height={24} width={24} fill="gray" />
       )}
-    </Pressable>
+    </BorderlessButton>
   );
 };
 

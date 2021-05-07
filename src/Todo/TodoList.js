@@ -1,10 +1,43 @@
 import React, {memo} from 'react';
-import {FlatList, Pressable, Text, View} from 'react-native';
+import {FlatList, Pressable, Text, View, Animated} from 'react-native';
+import {BorderlessButton} from 'react-native-gesture-handler';
+// import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Checkbox from '../components/checkbox/index';
 import DeleteIcon from '../../assets/icons/delete.svg';
 
 const TodoList = ({filltedList, onCompleteToggle, deleteTodo}) => {
+  // const renderLeftActions = (progress, dragX) => {
+  //   const trans = dragX.interpolate({
+  //     inputRange: [0, 50, 100, 101],
+  //     outputRange: [-20, 0, 0, 1],
+  //   });
+  //   return (
+  //     <RectButton
+  //       style={{
+  //         height: 40,
+  //         width: 100,
+  //         backgroundColor: 'red',
+  //       }}
+  //       onPress={this.close}>
+  //       <Animated.Text
+  //         style={[
+  //           {
+  //             color: '#fff',
+  //             transform: [{translateX: trans}],
+  //           },
+  //         ]}>
+  //         Delete
+  //       </Animated.Text>
+  //     </RectButton>
+  //   );
+  // };
+
   const renderList = ({item}) => {
+    // return (
+    //   <Swipeable renderRightActions={renderLeftActions}>
+    //     <Text>{item.text}</Text>
+    //   </Swipeable>
+    // );
     return (
       <View
         key={item.id}
@@ -24,9 +57,9 @@ const TodoList = ({filltedList, onCompleteToggle, deleteTodo}) => {
           }}>
           {item.text}
         </Text>
-        <Pressable onPress={() => deleteTodo(item)}>
+        <BorderlessButton onPress={() => deleteTodo(item)}>
           <DeleteIcon height={24} width={24} fill="gray" />
-        </Pressable>
+        </BorderlessButton>
       </View>
     );
   };
@@ -51,5 +84,5 @@ const TodoList = ({filltedList, onCompleteToggle, deleteTodo}) => {
 };
 
 export default memo(TodoList, (prevProps, nextProps) => {
-  return prevProps.filltedList.length === nextProps.filltedList.length;
+  return prevProps.filltedList === nextProps.filltedList;
 });
