@@ -28,9 +28,10 @@ class Todo extends Component {
 
   fetchTodos = async () => {
     try {
-      const res = await axios.get('todos');
+      const res = await fetch('http://localhost:3000/todos');
+      const todoList = await res.json();
       this.setState({
-        todoList: res.data,
+        todoList: todoList,
       });
     } catch (error) {
       console.log(error);
@@ -44,6 +45,18 @@ class Todo extends Component {
         text: todo,
         isDone: false,
       });
+      // const res = await fetch('http://localhost:3000/todos', {
+      //   method: 'POST',
+      //   body: JSON.stringify({
+      //     text: todo,
+      //     isDone: false,
+      //   }),
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Accept: 'application/json',
+      //   },
+      // });
+      // const todo = await res.json();
       const {todoList} = this.state;
       this.setState({
         todoList: [res.data, ...todoList],
