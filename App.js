@@ -14,7 +14,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerTitleAlign: 'left',
+          headerShown: false,
         }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen

@@ -14,6 +14,19 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     letterSpacing: 0.9,
   },
+  button: {
+    fontSize: 16,
+    fontWeight: '500',
+    letterSpacing: 1.25,
+    lineHeight: 24,
+  },
+  link: {
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 1.2,
+    lineHeight: 20,
+    textDecorationLine: 'underline',
+  },
 });
 
 export default styles;

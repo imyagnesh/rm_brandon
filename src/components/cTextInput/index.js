@@ -1,4 +1,4 @@
-import React, {PureComponent, createRef} from 'react';
+import React, {PureComponent} from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 import CText from '../CText';
 
@@ -23,11 +23,9 @@ const styles = StyleSheet.create({
 });
 
 class CTextInput extends PureComponent {
-  inputRef = createRef();
-
   focusedTextInput = () => {
-    const {style, error} = this.props;
-    this.inputRef.current.setNativeProps({
+    const {style, error, forwardedRef} = this.props;
+    forwardedRef.current.setNativeProps({
       style: {
         ...styles.textInput,
         ...style,
@@ -39,8 +37,8 @@ class CTextInput extends PureComponent {
   };
 
   noneFocusedTextInput = () => {
-    const {style, error} = this.props;
-    this.inputRef.current.setNativeProps({
+    const {style, error, forwardedRef} = this.props;
+    forwardedRef.current.setNativeProps({
       style: {
         ...styles.textInput,
         ...style,
@@ -63,23 +61,34 @@ class CTextInput extends PureComponent {
 
   render() {
     console.log('redner');
-    const {style, error, ...props} = this.props;
+    const {
+      style,
+      error,
+      forwardedRef,
+      field: {name, value, onBlur},
+      form: {touched, errors, setFieldValue},
+      ...props
+    } = this.props;
     return (
       <>
         <TextInput
-          ref={this.inputRef}
+          ref={forwardedRef}
+          name={name}
+          value={value}
+          onChangeText={text => setFieldValue(name, text)}
           onFocus={() => {
             this.focusedTextInput();
           }}
-          onBlur={() => {
+          onBlur={e => {
             this.noneFocusedTextInput();
+            onBlur(e);
           }}
           maxFontSizeMultiplier={1.2}
           {...props}
         />
-        {error && (
+        {touched[name] && errors[name] && (
           <CText variant="inlineError" style={{marginHorizontal: 10}}>
-            Error Message
+            {errors[name]}
           </CText>
         )}
       </>
