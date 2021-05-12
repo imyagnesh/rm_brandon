@@ -14,6 +14,12 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     letterSpacing: 0.9,
   },
+  error: {
+    fontSize: 12,
+    color: 'red',
+    fontWeight: '400',
+    lineHeight: 18,
+  },
   button: {
     fontSize: 16,
     fontWeight: '500',

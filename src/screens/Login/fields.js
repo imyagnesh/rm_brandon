@@ -6,7 +6,7 @@ const passwordRef = createRef();
 
 const fields = [
   {
-    name: 'userName',
+    name: 'identifier',
     initailValue: '',
     component: CTextInput,
     forwardedRef: usernameRef,

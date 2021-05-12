@@ -66,7 +66,7 @@ class CTextInput extends PureComponent {
       error,
       forwardedRef,
       field: {name, value, onBlur},
-      form: {touched, errors, setFieldValue},
+      form: {touched, errors, setFieldValue, setFieldTouched},
       ...props
     } = this.props;
     return (
@@ -78,10 +78,10 @@ class CTextInput extends PureComponent {
           onChangeText={text => setFieldValue(name, text)}
           onFocus={() => {
             this.focusedTextInput();
+            setFieldTouched(name, true);
           }}
           onBlur={e => {
             this.noneFocusedTextInput();
-            onBlur(e);
           }}
           maxFontSizeMultiplier={1.2}
           {...props}

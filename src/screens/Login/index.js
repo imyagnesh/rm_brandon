@@ -1,14 +1,23 @@
 import React from 'react';
 import {KeyboardAvoidingView, Platform, View} from 'react-native';
 import CText from '../../components/CText';
-import LockOpen from '../../../assets/icons/lock_open.svg';
-import CButton from '../../components/cButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Field, Formik} from 'formik';
 import fields from './fields';
 import Form from '../../components/Form';
+import axios from '../../utils/axios';
 
 const index = ({navigation}) => {
+  const onSubmit = async (values, hanlders) => {
+    try {
+      const res = await axios.post('auth/local', values);
+      await AsyncStorage.setItem('token', JSON.stringify(res.data));
+      navigation.navigate('Registration');
+    } catch (error) {
+      hanlders.setFieldError('server', error.message);
+    }
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView
@@ -21,12 +30,7 @@ const index = ({navigation}) => {
           </CText>
         </View>
         <View style={{flex: 3}}>
-          <Form
-            fields={fields}
-            onSubmit={values => {
-              console.log(values);
-            }}
-          />
+          <Form fields={fields} onSubmit={onSubmit} />
           <CText
             variant="link"
             dataDetectorType="link"
