@@ -5,7 +5,6 @@ import SplashScreen from '../screens/SplashScreen';
 const Root = createNativeStackNavigator();
 
 const RootStack = () => {
-  const isAuthenticated = true;
   return (
     <Root.Navigator
       screenOptions={{
@@ -22,6 +21,10 @@ const RootStack = () => {
       <Root.Screen
         name="Main"
         getComponent={() => require('../navigation/mainNavigation').default}
+      />
+      <Root.Screen
+        name="Modal"
+        getComponent={() => require('../screens/Modal').default}
       />
     </Root.Navigator>
   );
