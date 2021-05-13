@@ -12,9 +12,11 @@ const index = ({navigation}) => {
     try {
       const res = await axios.post('auth/local', values);
       await AsyncStorage.setItem('token', JSON.stringify(res.data));
-      navigation.navigate('Registration');
+      navigation.navigate('Main');
     } catch (error) {
       hanlders.setFieldError('server', error.message);
+    } finally {
+      hanlders.resetForm();
     }
   };
 
