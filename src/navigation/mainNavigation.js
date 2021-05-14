@@ -11,20 +11,20 @@ import SettingsOutlineIcon from '../../assets/icons/settings_outline.svg';
 import MenuIcon from '../../assets/icons/menu.svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const MainStack = createNativeStackNavigator();
 const MainDrawer = createDrawerNavigator();
 const MainTab = createBottomTabNavigator();
 const Home = createNativeStackNavigator();
 const Settings = createNativeStackNavigator();
+const Notification = createNativeStackNavigator();
 
 const HomeStack = () => {
   return (
     <Home.Navigator
-      screenOptions={() => {
+      screenOptions={({navigation}) => {
         return {
           headerLeft: () => {
             return (
-              <BorderlessButton>
+              <BorderlessButton onPress={() => navigation.openDrawer()}>
                 <MenuIcon height={24} width={24} fill="red" />
               </BorderlessButton>
             );
@@ -44,6 +44,13 @@ const SettingsStack = () => {
     <Settings.Navigator
       screenOptions={({navigation}) => {
         return {
+          headerLeft: () => {
+            return (
+              <BorderlessButton onPress={() => navigation.openDrawer()}>
+                <MenuIcon height={24} width={24} fill="red" />
+              </BorderlessButton>
+            );
+          },
           headerRight: () => {
             return (
               <BorderlessButton
@@ -71,7 +78,7 @@ const MainTabScreen = () => (
       return {
         tabBarIcon: ({focused, color, size}) => {
           switch (route.name) {
-            case 'HomeStack':
+            case 'Home':
               if (focused) {
                 return <HomeIcon height={size} width={size} fill={color} />;
               } else {
@@ -102,9 +109,43 @@ const MainTabScreen = () => (
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
     }}>
-    <MainTab.Screen name="HomeStack" component={HomeStack} />
+    <MainTab.Screen name="Home" component={HomeStack} />
     <MainTab.Screen name="Settings" component={SettingsStack} />
   </MainTab.Navigator>
 );
 
-export default MainTabScreen;
+const NotificationScreenStack = () => {
+  return (
+    <Notification.Navigator
+      screenOptions={({navigation}) => {
+        return {
+          headerLeft: () => {
+            return (
+              <BorderlessButton onPress={() => navigation.openDrawer()}>
+                <MenuIcon height={24} width={24} fill="red" />
+              </BorderlessButton>
+            );
+          },
+        };
+      }}>
+      <Notification.Screen
+        name="Notification"
+        getComponent={() => require('../screens/Notification').default}
+      />
+    </Notification.Navigator>
+  );
+};
+
+const MainDrawerScreen = () => {
+  return (
+    <MainDrawer.Navigator>
+      <MainDrawer.Screen name="Main" component={MainTabScreen} />
+      <MainDrawer.Screen
+        name="Notification"
+        component={NotificationScreenStack}
+      />
+    </MainDrawer.Navigator>
+  );
+};
+
+export default MainDrawerScreen;
