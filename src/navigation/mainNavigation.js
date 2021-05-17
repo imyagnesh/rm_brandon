@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {BorderlessButton} from 'react-native-gesture-handler';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LogoutIcon from '../../assets/icons/logout.svg';
 import HomeIcon from '../../assets/icons/home.svg';
+import LightMode from '../../assets/icons/light_mode.svg';
+import DarkMode from '../../assets/icons/dark_mode.svg';
 import HomeOutlineIcon from '../../assets/icons/home_outline.svg';
 import SettingsIcon from '../../assets/icons/settings.svg';
 import SettingsOutlineIcon from '../../assets/icons/settings_outline.svg';
 import MenuIcon from '../../assets/icons/menu.svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useTheme} from '@react-navigation/native';
+import {ThemeContext} from '../context/themeContext';
+import darkTheme from '../themes/darkTheme';
+import lightTheme from '../themes/lightTheme';
 
 const MainDrawer = createDrawerNavigator();
 const MainTab = createBottomTabNavigator();
@@ -21,11 +27,25 @@ const HomeStack = () => {
   return (
     <Home.Navigator
       screenOptions={({navigation}) => {
+        const {colors, dark} = useTheme();
+        const [, setTheme] = useContext(ThemeContext);
         return {
           headerLeft: () => {
             return (
               <BorderlessButton onPress={() => navigation.openDrawer()}>
-                <MenuIcon height={24} width={24} fill="red" />
+                <MenuIcon height={24} width={24} fill={colors.primary} />
+              </BorderlessButton>
+            );
+          },
+          headerRight: () => {
+            return (
+              <BorderlessButton
+                onPress={() => setTheme(dark ? lightTheme : darkTheme)}>
+                {dark ? (
+                  <DarkMode height={24} width={24} fill={colors.primary} />
+                ) : (
+                  <LightMode height={24} width={24} fill={colors.primary} />
+                )}
               </BorderlessButton>
             );
           },

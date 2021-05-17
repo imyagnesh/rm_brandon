@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {View, FlatList, Text, ActivityIndicator} from 'react-native';
+import {View, FlatList, ActivityIndicator} from 'react-native';
 import Image from 'react-native-fast-image';
+import {useTheme} from '@react-navigation/native';
+import CText from '../../components/CText';
 
 import axios from 'axios';
 
@@ -9,6 +11,7 @@ const HomeScreen = ({navigation}) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const {colors} = useTheme();
 
   // CDM
   useEffect(() => {
@@ -37,11 +40,11 @@ const HomeScreen = ({navigation}) => {
   }, [page]);
 
   if (error) {
-    return <Text>{error.message}</Text>;
+    return <CText>{error.message}</CText>;
   }
 
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <View style={{flex: 1, backgroundColor: colors.background}}>
       <FlatList
         data={photos}
         renderItem={({item, index}) => {
@@ -66,7 +69,7 @@ const HomeScreen = ({navigation}) => {
                 }}
                 resizeMode="contain"
               />
-              <Text style={{flex: 1, paddingLeft: 8}}>{item.title}</Text>
+              <CText style={{flex: 1, paddingLeft: 8}}>{item.title}</CText>
             </View>
           );
         }}

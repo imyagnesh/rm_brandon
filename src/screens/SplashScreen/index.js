@@ -9,7 +9,8 @@ const SplashScreen = ({navigation}) => {
   // dont provide Second Parameter then it will work as CDM & CDU
   // if provide [] as second parameter it will work as cdm
   useEffect(() => {
-    checkToken();
+    // checkToken();
+    navigation.navigate('Main');
     return () => {};
   }, []);
 

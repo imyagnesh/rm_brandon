@@ -1,15 +1,25 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {enableScreens} from 'react-native-screens';
 import RootStack from './src/navigation/rootNavigation';
+import ThemeProvider, {ThemeContext} from './src/context/themeContext';
 
 enableScreens();
 
-const App = () => {
+const Navigation = () => {
+  const [theme] = useContext(ThemeContext);
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <RootStack />
     </NavigationContainer>
+  );
+};
+
+const App = () => {
+  return (
+    <ThemeProvider>
+      <Navigation />
+    </ThemeProvider>
   );
 };
 

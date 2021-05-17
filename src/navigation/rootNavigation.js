@@ -13,10 +13,10 @@ const RootStack = () => {
       }}>
       <Root.Screen name="Splash" component={SplashScreen} />
       {/* stack navigation */}
-      <Root.Screen
+      {/* <Root.Screen
         name="Authentication"
         getComponent={() => require('../navigation/authNavigation').default}
-      />
+      /> */}
       {/* tab Navigation */}
       <Root.Screen
         name="Main"
